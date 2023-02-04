@@ -1,0 +1,30 @@
+{
+  "name": "moonlove",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azizjon003/moonlov.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Azizjon003/moonlov/issues"
+  },
+  "homepage": "https://github.com/Azizjon003/moonlov#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "redis": "^4.6.4",
+    "sequelize": "^6.28.0",
+    "telegraf": "^4.11.2",
+    "telegraf-session-redis": "^5.1.0"
+  }
+}
