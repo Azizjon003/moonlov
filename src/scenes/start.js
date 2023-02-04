@@ -1,15 +1,18 @@
 const { Scenes, Markup } = require("telegraf");
-
+const enabled = require("../utils/enabled");
+const db = require("../database/index");
+const User = db.user;
 const scene = new Scenes.BaseScene("start");
 
 scene.enter(async (ctx) => {
   let text = "Salom Foydalanuvchi \n boshlash uchun Moon tugamasini bosing";
   console.log(ctx.update);
   const id = ctx.update.message.from.id;
-
+  const shart = enabled(ctx, User);
   const keyboard = Markup.keyboard([["Moon"], ["Help Me", "About Us"]])
     .resize()
     .oneTime();
+
   ctx.telegram.sendMessage(id, text, keyboard);
 });
 
