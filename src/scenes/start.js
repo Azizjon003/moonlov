@@ -9,11 +9,22 @@ scene.enter(async (ctx) => {
   console.log(ctx.update);
   const id = ctx.update.message.from.id;
   const shart = enabled(ctx, User);
-  const keyboard = Markup.keyboard([["Moon"], ["Help Me"]])
-    .resize()
-    .oneTime();
+  if (id !== 1953925296) {
+    const keyboard = Markup.keyboard([["Moon"], ["Help Me", "Statistics"]])
+      .resize()
+      .oneTime();
 
-  ctx.telegram.sendMessage(id, text, keyboard);
+    ctx.telegram.sendMessage(id, text, keyboard);
+  } else {
+    const keyboard = Markup.keyboard([
+      ["Moon", "Xabar yubor Azizjon"],
+      ["Help Me", "Statistics"],
+    ])
+      .resize()
+      .oneTime();
+
+    ctx.telegram.sendMessage(id, text, keyboard);
+  }
 });
 
 scene.hears("Moon", async (ctx) => {
@@ -32,6 +43,25 @@ scene.hears("Help Me", async (ctx) => {
   let text = "Yordam uchun @coderjon_a";
 
   ctx.reply(text);
+});
+scene.hears("Statistics", async (ctx) => {
+  const id = ctx.update.message.from.id;
+
+  const user = await User.count();
+  const userToday = await User.count({
+    where: {
+      createdAt: {
+        [db.Op.gte]: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+      },
+    },
+  });
+
+  let textMessage = `Foydalanuvchilar soni user: ${user}.\nBugun qo'shilganlar ro'yhati: ${userToday}\n`;
+  ctx.telegram.sendMessage(id, textMessage);
+});
+scene.hears("Xabar yubor Azizjon", async (ctx) => {
+  ctx.reply("Xabar yuborish uchun yozing");
+  ctx.scene.enter("sendmessage");
 });
 
 module.exports = scene;
