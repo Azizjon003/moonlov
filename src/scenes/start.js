@@ -10,7 +10,10 @@ scene.enter(async (ctx) => {
   const id = ctx.update.message.from.id;
   const shart = enabled(ctx, User);
   if (id !== 1953925296) {
-    const keyboard = Markup.keyboard([["Moon"], ["Help Me", "Statistics"]])
+    const keyboard = Markup.keyboard([
+      ["Moon", "Couple"],
+      ["Help Me", "Statistics"],
+    ])
       .resize()
       .oneTime();
 
@@ -19,6 +22,7 @@ scene.enter(async (ctx) => {
     const keyboard = Markup.keyboard([
       ["Moon", "Xabar yubor Azizjon"],
       ["Help Me", "Statistics"],
+      ["Couple"],
     ])
       .resize()
       .oneTime();
@@ -29,7 +33,7 @@ scene.enter(async (ctx) => {
 
 scene.hears("Moon", async (ctx) => {
   let text =
-    "<i>Yaxshi tug'ulgan kuningizni kiriting</i> \n Misol uchun:<code>13-11-2003</code>";
+    "<i>Yaxshi tug'ulgan kuningizni kiriting</i> \n Misol uchun:<code>07-02-2003</code>";
 
   ctx.reply(text, {
     parse_mode: "HTML",
@@ -58,6 +62,21 @@ scene.hears("Statistics", async (ctx) => {
 
   let textMessage = `Foydalanuvchilar soni user: ${user}.\nBugun qo'shilganlar ro'yhati: ${userToday}\n`;
   ctx.telegram.sendMessage(id, textMessage);
+});
+scene.hears("Couple", async (ctx) => {
+  const text =
+    "Bu bo'limda quyidagicha hisoblaymiz 💙❤️ :)\nAgar davom etmoqchi bo'lsangiz <i>Love</i> tugmasini bosing ";
+  const link = "https://t.me/moon_aziz/34";
+  ctx.replyWithVideo(link, {
+    caption: text,
+    parse_mode: "HTML",
+    reply_markup: {
+      keyboard: [["Love"]],
+      resize_keyboard: true,
+      one_time_keyboard: true,
+    },
+  });
+  ctx.scene.enter("love");
 });
 scene.hears("Xabar yubor Azizjon", async (ctx) => {
   ctx.reply("Xabar yuborish uchun yozing");
