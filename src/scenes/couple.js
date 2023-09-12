@@ -72,21 +72,26 @@ scene.hears("Cool", async (ctx) => {
     }`
   );
 
-  await ctx.telegram.sendPhoto(id, birthdayLink, {
+  await ctx.telegram.sendPhoto(id, birthdayLink.url, {
     caption: "<i>Sizning tug'ulgan kuningiz</i>",
     parse_mode: "HTML",
   });
 
-  await axios.get("http://magicsoft.uz/");
-  await ctx.telegram.sendPhoto(id, thisbirthLink, {
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  await delay(500);
+  await ctx.telegram.sendPhoto(id, thisbirthLink.url, {
     caption: "<i>Juftingizning tug'ulgan kuni</i>",
     parse_mode: "HTML",
   });
-  await axios.get("http://magicsoft.uz/");
+  await delay(500);
+  // await axios.get("http://magicsoft.uz/");
   ctx.reply("Biralashgan rasm tayyorlanmoqda");
 
-  const url = await compositeImage(link, link1);
-  await axios.get("http://magicsoft.uz/");
+  const url = await compositeImage(birthdayLink.link, thisbirthLink.link);
+  // await axios.get("http://magicsoft.uz/");
+
+  await delay(500);
   const data = fs.readFileSync(url);
   await ctx.telegram.sendPhoto(
     id,
